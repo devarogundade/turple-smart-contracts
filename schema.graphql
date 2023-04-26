@@ -1,0 +1,64 @@
+type OwnershipTransferStarted @entity(immutable: true) {
+  id: Bytes!
+  previousOwner: Bytes! # address
+  newOwner: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type OwnershipTransferred @entity(immutable: true) {
+  id: Bytes!
+  previousOwner: Bytes! # address
+  newOwner: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type AdCreated @entity(immutable: false) {
+  id: ID!
+  format: Int!
+  category: Int!
+  adId: BigInt!
+  balance: BigInt!
+  state: Int!
+  metadata: String!
+  createdOn: BigInt!
+  advertiser: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type AppCreated @entity(immutable: false) {
+  id: ID!
+  appId: BigInt!
+  format: Int!
+  category: Int!
+  claimedReward: BigInt!
+  metadata: String!
+  createdOn: BigInt!
+  publisher: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type ProposalApproved @entity(immutable: false) {
+  id: Bytes!
+  adId: BigInt!
+  validator: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type ProposalDisApproved @entity(immutable: false) {
+  id: Bytes!
+  adId: BigInt!
+  validator: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
