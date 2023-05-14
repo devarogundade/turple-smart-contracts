@@ -83,14 +83,14 @@ abstract contract AdvertiserNode is Context {
         _emitAd(_ads[adId]);
     }
 
-    function proposeAd(uint256 adId) public virtual {
+    function _proposeAd(uint256 adId) public virtual {
         require(AdState.DEFAULT == _ads[adId].state);
         _ads[adId].state = AdState.PROPOSED;
 
         _emitAd(_ads[adId]);
     }
 
-    function publishAd(uint256 adId) public virtual {
+    function _publishAd(uint256 adId) internal virtual {
         require(AdState.PROPOSED == _ads[adId].state);
         _ads[adId].state = AdState.PUBLISHED;
 

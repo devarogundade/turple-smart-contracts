@@ -29,6 +29,9 @@ type AdCreated @entity(immutable: false) {
   blockNumber: BigInt!
   blockTimestamp: BigInt!
   transactionHash: Bytes!
+  approves: [ProposalApproved!]! @derivedFrom(field: "ad")
+  disapproves: [ProposalDisApproved!]! @derivedFrom(field: "ad")
+  status: ProposalStatus! @derivedFrom(field: "ad")
 }
 
 type AppCreated @entity(immutable: false) {
@@ -45,20 +48,34 @@ type AppCreated @entity(immutable: false) {
   transactionHash: Bytes!
 }
 
-type ProposalApproved @entity(immutable: false) {
-  id: Bytes!
-  adId: BigInt!
-  validator: Bytes! # address
+type ProposalStatus @entity(immutable: false) {
+  id: ID!
+  adId: ID!
+  state: Boolean! #boolean
   blockNumber: BigInt!
   blockTimestamp: BigInt!
   transactionHash: Bytes!
+  ad: AdCreated!
 }
 
-type ProposalDisApproved @entity(immutable: false) {
-  id: Bytes!
-  adId: BigInt!
+
+type ProposalApproved @entity(immutable: false) {
+  id: ID!
+  adId: ID!
   validator: Bytes! # address
   blockNumber: BigInt!
   blockTimestamp: BigInt!
   transactionHash: Bytes!
+  ad: AdCreated!
+}
+
+
+type ProposalDisApproved @entity(immutable: false) {
+  id: ID!
+  adId: ID!
+  validator: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+  ad: AdCreated!
 }

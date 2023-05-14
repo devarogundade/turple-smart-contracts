@@ -4,8 +4,9 @@ import {
     OwnershipTransferred as OwnershipTransferredEvent,
     AdCreated as AdCreatedEvent,
     AppCreated as AppCreatedEvent,
+    ProposalStatus as ProposalStatusEvent,
     ProposalApproved as ProposalApprovedEvent,
-    ProposalDisApproved as ProposalDisApprovedEvent
+    ProposalDisApproved as ProposalDisapprovedEvent
 } from "../generated/TurpleCore/TurpleCore"
 
 import {
@@ -13,6 +14,7 @@ import {
     OwnershipTransferred,
     AdCreated,
     AppCreated,
+    ProposalStatus,
     ProposalApproved,
     ProposalDisApproved
 } from "../generated/schema"
@@ -107,36 +109,75 @@ export function handleAppCreated(
     entity.save()
 }
 
+export function handleProposalStatus(
+    event: ProposalStatusEvent
+): void {
+    let entity = ProposalStatus.load(
+        event.params.adId.toString()
+    )
+
+    if (!entity) {
+        entity = new ProposalStatus(
+            event.params.adId.toString()
+        )
+    }
+
+    entity.adId = event.params.adId.toString()
+    entity.state = event.params.newState
+
+    entity.blockNumber = event.block.number
+    entity.blockTimestamp = event.block.timestamp
+    entity.transactionHash = event.transaction.hash
+    entity.ad = event.params.adId.toString()
+
+    entity.save()
+}
+
+
 export function handleProposalApproved(
     event: ProposalApprovedEvent
 ): void {
-    let entity = new ProposalApproved(
-        event.transaction.hash.concatI32(event.logIndex.toI32())
+    let entity = ProposalApproved.load(
+        event.params.adId.toString()
     )
 
-    entity.adId = event.params.adId
+    if (!entity) {
+        entity = new ProposalApproved(
+            event.params.adId.toString()
+        )
+    }
+
+    entity.adId = event.params.adId.toString()
     entity.validator = event.params.validator
 
     entity.blockNumber = event.block.number
     entity.blockTimestamp = event.block.timestamp
     entity.transactionHash = event.transaction.hash
+    entity.ad = event.params.adId.toString()
 
     entity.save()
 }
 
 export function handleProposalDisApproved(
-    event: ProposalDisApprovedEvent
+    event: ProposalDisapprovedEvent
 ): void {
-    let entity = new ProposalDisApproved(
-        event.transaction.hash.concatI32(event.logIndex.toI32())
+    let entity = ProposalDisApproved.load(
+        event.params.adId.toString()
     )
 
-    entity.adId = event.params.adId
+    if (!entity) {
+        entity = new ProposalDisApproved(
+            event.params.adId.toString()
+        )
+    }
+
+    entity.adId = event.params.adId.toString()
     entity.validator = event.params.validator
 
     entity.blockNumber = event.block.number
     entity.blockTimestamp = event.block.timestamp
     entity.transactionHash = event.transaction.hash
+    entity.ad = event.params.adId.toString()
 
     entity.save()
 }

@@ -25,9 +25,17 @@ abstract contract Proposals is IProposals, Context {
         address[] disapproves;
     }
 
+    event ProposalStatus(uint256 adId, bool newState);
+
     event ProposalApproved(uint256 adId, address validator);
 
     event ProposalDisApproved(uint256 adId, address validator);
+
+    function setState(uint256 adId, bool newState) internal virtual {
+        _proposals[adId].status = newState;
+
+        emit ProposalStatus(adId, newState);
+    }
 
     /** @dev function to vote up an ads campaign proposal */
     function approve(

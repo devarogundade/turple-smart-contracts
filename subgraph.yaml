@@ -6,7 +6,7 @@ dataSources:
     name: TurpleCore
     network: testnet
     source:
-      address: "0x71DbC567149b76964bef122b1FA52fFE0CeCc5bE"
+      address: "0x5a0dA6fAA41dd99972BbAf2c6399db9b9C14A177"
       abi: TurpleCore
       startBlock: 20796339
     mapping:
@@ -32,6 +32,8 @@ dataSources:
           handler: handleAdCreated
         - event: AppCreated(uint256,uint16,uint16,uint256,string,uint256,address)
           handler: handleAppCreated
+        - event: ProposalStatus(uint256,bool)
+          handler: handleProposalStatus
         - event: ProposalApproved(uint256,address)
           handler: handleProposalApproved
         - event: ProposalDisApproved(uint256,address)

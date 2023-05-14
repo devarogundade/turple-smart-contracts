@@ -30,6 +30,17 @@ contract TurpleCore is
         _turpleTorken.transferFrom(account, address(this), amount);
     }
 
+    function proposeAd(uint256 adId) external {
+        _proposeAd(adId);
+        setState(adId, true);
+    }
+
+    function publishAd(uint256 adId) external {
+        require(state(adId) == ProposalState.APPROVED);
+        setState(adId, false);
+        _publishAd(adId);
+    }
+
     // ========== Publishers Functions =========== //
 
     function claimAppReward(uint256 appId, uint256 amount) external {
