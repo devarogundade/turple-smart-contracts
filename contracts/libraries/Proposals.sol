@@ -9,7 +9,7 @@ abstract contract Proposals is IProposals, Context {
 
     /** @dev 70 percent */
     uint56 private _minVoteRatio = 700;
-    uint56 private _minVotes = 4;
+    uint56 private _minVotes = 2; // for testing
 
     mapping(uint256 => Proposal) public _proposals;
 
@@ -23,6 +23,10 @@ abstract contract Proposals is IProposals, Context {
         bool status;
         address[] approves;
         address[] disapproves;
+    }
+
+    function setMinVotes(uint56 newValue) internal virtual {
+        _minVotes = newValue;
     }
 
     event ProposalStatus(uint256 adId, bool newState);

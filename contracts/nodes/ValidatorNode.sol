@@ -4,7 +4,7 @@ pragma solidity ^0.8.17;
 import "./../libraries/Proposals.sol";
 
 abstract contract ValidatorNode is Proposals {
-    uint256 private _voteReward = 2 * 1e18;
+    uint256 private _voteReward = 2 * 1e17;
     uint256 private _validatorFee = 10500 * 1e18;
 
     mapping(address => Validator) public _validators;
