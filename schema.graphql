@@ -60,7 +60,7 @@ type ProposalStatus @entity(immutable: false) {
 
 
 type ProposalApproved @entity(immutable: false) {
-  id: ID!
+  id: Bytes!
   adId: ID!
   validator: Bytes! # address
   blockNumber: BigInt!
@@ -71,7 +71,7 @@ type ProposalApproved @entity(immutable: false) {
 
 
 type ProposalDisApproved @entity(immutable: false) {
-  id: ID!
+  id: Bytes!
   adId: ID!
   validator: Bytes! # address
   blockNumber: BigInt!

@@ -6,7 +6,7 @@ dataSources:
     name: TurpleCore
     network: testnet
     source:
-      address: "0x86570d8804CEfE191f38561C18075532182c438E"
+      address: "0x6C63dBA215987C6De8f05E8f9013FD8D5c56C26b"
       abi: TurpleCore
       startBlock: 21145800
     mapping:

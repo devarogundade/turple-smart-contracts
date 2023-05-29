@@ -137,15 +137,9 @@ export function handleProposalStatus(
 export function handleProposalApproved(
     event: ProposalApprovedEvent
 ): void {
-    let entity = ProposalApproved.load(
-        event.params.adId.toString()
+    let entity = new ProposalApproved(
+        event.transaction.hash.concatI32(event.logIndex.toI32())
     )
-
-    if (!entity) {
-        entity = new ProposalApproved(
-            event.params.adId.toString()
-        )
-    }
 
     entity.adId = event.params.adId.toString()
     entity.validator = event.params.validator
@@ -161,15 +155,9 @@ export function handleProposalApproved(
 export function handleProposalDisApproved(
     event: ProposalDisapprovedEvent
 ): void {
-    let entity = ProposalDisApproved.load(
-        event.params.adId.toString()
+    let entity = new ProposalDisApproved(
+        event.transaction.hash.concatI32(event.logIndex.toI32())
     )
-
-    if (!entity) {
-        entity = new ProposalDisApproved(
-            event.params.adId.toString()
-        )
-    }
 
     entity.adId = event.params.adId.toString()
     entity.validator = event.params.validator

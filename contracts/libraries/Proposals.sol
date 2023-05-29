@@ -8,7 +8,7 @@ abstract contract Proposals is IProposals, Context {
     uint256 private constant VOTE_DENOMINATOR = 100;
 
     /** @dev 70 percent */
-    uint56 private _minVoteRatio = 700;
+    uint56 private _minVoteRatio = 70;
     uint56 private _minVotes = 2; // for testing
 
     mapping(uint256 => Proposal) public _proposals;
@@ -70,7 +70,7 @@ abstract contract Proposals is IProposals, Context {
             return ProposalState.ONGOING;
 
         uint256 voteRatio = ((approvesCount * VOTE_DENOMINATOR) /
-            disApprovesCount);
+            (approvesCount + disApprovesCount));
 
         if (voteRatio >= _minVoteRatio) {
             return ProposalState.APPROVED;
